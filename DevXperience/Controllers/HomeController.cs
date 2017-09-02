@@ -14,10 +14,27 @@ namespace DevXperience.Controllers
 {
     public class HomeController : Controller
     {
+        private IMemoryCache _cache;
+        public HomeController(IMemoryCache memoryCache)
+        {
+            _cache = memoryCache;
+        }
+
         public IActionResult Index()
         {
             List<Photo> photosList;
-            photosList = Photo.GetPhotos();
+            if (!_cache.TryGetValue("photosList", out photosList))
+            {
+                photosList = Photo.GetPhotos();
+
+                //var cacheEntryOptions = new MemoryCacheEntryOptions()
+                //    .SetSlidingExpiration(TimeSpan.FromSeconds(3));
+                var cacheEntryOptions = new MemoryCacheEntryOptions()
+                    .SetAbsoluteExpiration(DateTime.Now.AddSeconds(20));
+
+
+                _cache.Set("photosList", photosList, cacheEntryOptions);
+            }
 
             return View(photosList);
         }

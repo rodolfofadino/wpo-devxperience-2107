@@ -8,5 +8,13 @@
       "enabled": true,
       "renameLocals": true
     }
+  },
+  {
+    "outputFileName": "wwwroot/css/bundle.css",
+    "inputFiles": [
+      "wwwroot/css/tema.css",
+      "wwwroot/css/secao.css",
+      "wwwroot/css/site.css"
+    ]
   }
 ]
