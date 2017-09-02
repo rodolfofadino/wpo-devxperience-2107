@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  devxperience:
+    image: devxperience
+    build:
+      context: ./DevXperience
+      dockerfile: Dockerfile
